@@ -1,3 +1,50 @@
 {
-  "item.utility_pearls.utility_pearl": "Utility Pearl"
+  "item.utility_pearls.utility_pearl": "Utility Pearl",
+  "item.utility_pearls.night_vision_pearl_1": "Night Vision Pearl (Owner)",
+  "item.utility_pearls.night_vision_pearl_2": "Night Vision Pearl (Hit Entity)",
+
+  "item.utility_pearls.speed_pearl_1": "Speed Pearl (Owner)",
+  "item.utility_pearls.speed_pearl_2": "Speed Pearl (Hit Entity)",
+
+  "item.utility_pearls.fire_resistance_pearl_1": "Fire Resistance Pearl (Owner)",
+  "item.utility_pearls.fire_resistance_pearl_2": "Fire Resistance Pearl (Hit Entity)",
+
+  "item.utility_pearls.water_breathing_pearl_1": "Water Breathing Pearl (Owner)",
+  "item.utility_pearls.water_breathing_pearl_2": "Water Breathing Pearl (Hit Entity)",
+
+  "item.utility_pearls.regeneration_pearl_1": "Regeneration Pearl (Owner)",
+  "item.utility_pearls.regeneration_pearl_2": "Regeneration Pearl (Hit Entity)",
+
+  "item.utility_pearls.strength_pearl_1": "Strength Pearl (Owner)",
+  "item.utility_pearls.strength_pearl_2": "Strength Pearl (Hit Entity)",
+
+  "item.utility_pearls.invisibility_pearl_1": "Invisibility Pearl (Owner)",
+  "item.utility_pearls.invisibility_pearl_2": "Invisibility Pearl (Hit Entity)",
+
+  "item.utility_pearls.luck_pearl_1": "Luck Pearl (Owner)",
+  "item.utility_pearls.luck_pearl_2": "Luck Pearl (Hit Entity)",
+
+  "item.utility_pearls.turtle_master_pearl_1": "Turtle Master Pearl (Owner)",
+  "item.utility_pearls.turtle_master_pearl_2": "Turtle Master Pearl (Hit Entity)",
+
+  "item.utility_pearls.instant_health_pearl_1": "Instant Health Pearl (Owner)",
+  "item.utility_pearls.instant_health_pearl_2": "Instant Health Pearl (Hit Entity)",
+
+  "item.utility_pearls.instant_damage_pearl_1": "Instant Damage Pearl (Owner)",
+  "item.utility_pearls.instant_damage_pearl_2": "Instant Damage Pearl (Hit Entity)",
+
+  "item.utility_pearls.jump_boost_pearl_1": "Jump Boost Pearl (Owner)",
+  "item.utility_pearls.jump_boost_pearl_2": "Jump Boost Pearl (Hit Entity)",
+
+  "item.utility_pearls.poison_pearl_1": "Poison Pearl (Owner)",
+  "item.utility_pearls.poison_pearl_2": "Poison Pearl (Hit Entity)",
+
+  "item.utility_pearls.slowness_pearl_1": "Slowness Pearl (Owner)",
+  "item.utility_pearls.slowness_pearl_2": "Slowness Pearl (Hit Entity)",
+
+  "item.utility_pearls.weakness_pearl_1": "Weakness Pearl (Owner)",
+  "item.utility_pearls.weakness_pearl_2": "Weakness Pearl (Hit Entity)",
+
+  "item.utility_pearls.slow_falling_pearl_1": "Slow Falling Pearl (Owner)",
+  "item.utility_pearls.slow_falling_pearl_2": "Slow Falling Pearl (Hit Entity)"
 }

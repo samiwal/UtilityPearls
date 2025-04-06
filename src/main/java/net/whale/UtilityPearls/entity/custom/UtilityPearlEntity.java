@@ -1,6 +1,8 @@
 package net.whale.UtilityPearls.entity.custom;
 
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.item.ItemStack;
@@ -8,16 +10,23 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.whale.UtilityPearls.Item.ModItems;
 
 public class UtilityPearlEntity extends ThrownEnderpearl {
-    private static final int LIFETIME_TICKS = 70;
+    private static int LIFETIME_TICKS = 50;
+    private MobEffectInstance effect2;
+    private MobEffectInstance effect;
+    private ItemStack item;
+    private int applyTo;
+    private Player player;
     private int lifeTime = 0;
-    public UtilityPearlEntity(EntityType<? extends ThrownEnderpearl> entityType, Level world,Player player) {
+    public UtilityPearlEntity(EntityType<? extends ThrownEnderpearl> entityType, Level world, Player player, MobEffectInstance effect,MobEffectInstance effect2, int applyTo,ItemStack item) {
         super(entityType, world);
-        this.setPos(player.getX(), player.getEyeY(), player.getZ());
         this.setNoGravity(true);
-        this.noPhysics = true;
+        this.effect = effect;
+        this.effect2 = effect2;
+        this.applyTo = applyTo;
+        this.player = player;
+        this.item = item;
     }
     public UtilityPearlEntity(EntityType<UtilityPearlEntity> entityType, Level level) {
         super(entityType,level);
@@ -27,6 +36,19 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     protected void onHit(HitResult pResult) {
         if (pResult instanceof EntityHitResult) {
             super.onHit(pResult);
+            if (applyTo == 1) {
+                player.addEffect(new MobEffectInstance(effect.getEffect(),effect.getDuration(),effect.getAmplifier()));
+                if (effect2 != null) {
+                    player.addEffect(new MobEffectInstance(effect2));
+                }
+            } else if (applyTo == 2) {
+                if(((EntityHitResult) pResult).getEntity() instanceof LivingEntity livingEntity){
+                    livingEntity.addEffect(new MobEffectInstance(effect.getEffect(),effect.getDuration(),effect.getAmplifier()));
+                    if (effect2 != null) {
+                        livingEntity.addEffect(new MobEffectInstance(effect2));
+                    }
+                }
+            }
         }
     }
 
@@ -49,10 +71,9 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
         }
     }
     private void returnToPlayer() {
-        if (this.getOwner() instanceof Player player) {
-            ItemStack pearlStack = new ItemStack(ModItems.UTILITY_PEARL_ITEM.get());
-            if (!player.getInventory().add(pearlStack)) {
-                player.drop(pearlStack, false);
+        if (this.getOwner() instanceof Player player && item != null) {
+            if (!player.getInventory().add(new ItemStack(item.getItem()))) {
+                player.drop(new ItemStack(item.getItem()), false);
             }
         }
     }

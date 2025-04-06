@@ -44,7 +44,7 @@ public class UtilityPearls
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.UTILITY_PEARL_ITEM);
+           ModItems.ITEMS.getEntries().forEach(item -> event.accept(item.get()));
         }
     }
 
@@ -59,8 +59,6 @@ public class UtilityPearls
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntities.UTILITY_PEARL.get(), ThrownItemRenderer::new);
-
         }
-
     }
 }
