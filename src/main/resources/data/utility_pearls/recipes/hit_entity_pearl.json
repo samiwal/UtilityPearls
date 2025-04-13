@@ -1,0 +1,15 @@
+{
+  "type": "utility_pearls:utility_pearl_hit_entity",
+  "group": "",
+  "ingredients": [
+    {
+      "item": "utility_pearls:utility_pearl"
+    },
+    {
+      "item": "minecraft:potion"
+    }
+  ],
+  "result": {
+    "item": "utility_pearls:utility_pearl_hit_entity"
+  }
+}

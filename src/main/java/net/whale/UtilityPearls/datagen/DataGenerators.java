@@ -22,5 +22,6 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(),new ModRecipeProvider(packOutput,lookupProvider));
         generator.addProvider(event.includeClient(),new ModItemModelProvider(packOutput,existingFileHelper));
+        generator.addProvider(event.includeClient(),new ModLangEnUsProvider(packOutput));
     }
 }

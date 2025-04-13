@@ -18,7 +18,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ModItems.ITEMS.getEntries().forEach(this::simpleItem);
+        simpleItem(ModItems.UTILITY_PEARL);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
