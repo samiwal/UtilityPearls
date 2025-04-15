@@ -40,25 +40,33 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
             PotionContents contents = getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
             if(applyTo == 1)
                 for (MobEffectInstance effect : contents.getAllEffects()) {
-                    player.addEffect(new MobEffectInstance(
-                            effect.getEffect(),
-                            effect.getDuration()/4,
-                            effect.getAmplifier(),
-                            effect.isAmbient(),
-                            effect.isVisible(),
-                            effect.showIcon()
-                    ));
+                    if (effect.getEffect().value().isInstantenous()) {
+                        effect.getEffect().value().applyInstantenousEffect(this, player, player, effect.getAmplifier(),1.0);
+                    } else {
+                        player.addEffect(new MobEffectInstance(
+                                effect.getEffect(),
+                                effect.getDuration() / 4,
+                                effect.getAmplifier(),
+                                effect.isAmbient(),
+                                effect.isVisible(),
+                                effect.showIcon()
+                        ));
+                    }
                 }
             else if(applyTo == 2 && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
                 for (MobEffectInstance effect : contents.getAllEffects()) {
-                    livingEntity.addEffect(new MobEffectInstance(
-                            effect.getEffect(),
-                            effect.getDuration()/4,
-                            effect.getAmplifier(),
-                            effect.isAmbient(),
-                            effect.isVisible(),
-                            effect.showIcon()
-                    ));
+                    if (effect.getEffect().value().isInstantenous()) {
+                        effect.getEffect().value().applyInstantenousEffect(this, player, livingEntity, effect.getAmplifier(),1.0);
+                    } else {
+                        livingEntity.addEffect(new MobEffectInstance(
+                                effect.getEffect(),
+                                effect.getDuration() / 4,
+                                effect.getAmplifier(),
+                                effect.isAmbient(),
+                                effect.isVisible(),
+                                effect.showIcon()
+                        ));
+                    }
                 }
             }
         }

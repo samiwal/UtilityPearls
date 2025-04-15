@@ -1,19 +1,13 @@
 package net.whale.UtilityPearls.compatibility;
 
-import com.google.common.collect.ImmutableTable;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Table<R, C, V> {
-    public static <R, C, V> Table<R, C, V> hashBasedTable() {
-        return new Table<>(new HashMap<>(), HashMap::new);
-    }
-
     public static <R, C, V> Table<R, C, V> identityHashBasedTable() {
         return new Table<>(new IdentityHashMap<>(), IdentityHashMap::new);
     }
@@ -32,11 +26,6 @@ public class Table<R, C, V> {
         return rowMap.get(col);
     }
 
-    public V computeIfAbsent(R row, C col, Supplier<V> valueSupplier) {
-        Map<C, V> rowMap = getRow(row);
-        return rowMap.computeIfAbsent(col, k -> valueSupplier.get());
-    }
-
     @Nullable
     public V put(R row, C col, V val) {
         Map<C, V> rowMap = getRow(row);
@@ -50,22 +39,5 @@ public class Table<R, C, V> {
     public boolean contains(R row, C col) {
         Map<C, V> map = table.get(row);
         return map != null && map.containsKey(col);
-    }
-
-    public void clear() {
-        table.clear();
-    }
-
-    public ImmutableTable<R, C, V> toImmutable() {
-        ImmutableTable.Builder<R, C, V> builder = ImmutableTable.builder();
-        for (Map.Entry<R, Map<C, V>> entry : table.entrySet()) {
-            R row = entry.getKey();
-            for (Map.Entry<C, V> rowEntry : entry.getValue().entrySet()) {
-                C col = rowEntry.getKey();
-                V val = rowEntry.getValue();
-                builder.put(row, col, val);
-            }
-        }
-        return builder.build();
     }
 }

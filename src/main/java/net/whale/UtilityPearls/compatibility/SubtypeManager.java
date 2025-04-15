@@ -12,7 +12,6 @@ public class SubtypeManager implements ISubtypeManager {
     public SubtypeManager(SubtypeInterpreters interpreters) {
         this.interpreters = interpreters;
     }
-
     @Override
     public <T> String getSubtypeInfo(IIngredientTypeWithSubtypes<?, T> ingredientType, T ingredient, UidContext context) {
         return interpreters.get(ingredientType, ingredient)
