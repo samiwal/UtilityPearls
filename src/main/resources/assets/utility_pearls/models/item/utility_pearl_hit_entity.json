@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "utility_pearls:item/utility_pearl",
+    "layer1": "utility_pearls:item/utility_pearl_hit_entity_tint"
+  },
+  "overrides": []
+}
