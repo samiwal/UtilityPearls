@@ -1,6 +1,9 @@
 package net.whale.UtilityPearls.entity.custom;
 
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,17 +16,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.whale.UtilityPearls.command.UtilityPearlData;
 
 public class UtilityPearlEntity extends ThrownEnderpearl {
-    private static int LIFETIME_TICKS = 75;
     private Item item;
     private Player player;
+    private Level world;
     private int lifeTime = 0;
     private int applyTo;
     private PotionContents contents;
     public UtilityPearlEntity(EntityType<? extends ThrownEnderpearl> entityType, Level world, Player player, int applyTo, Item item,PotionContents contents) {
         super(entityType, world);
         this.setNoGravity(true);
+        this.world = world;
         this.player = player;
         this.applyTo = applyTo;
         this.item = item;
@@ -31,6 +37,7 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     }
     public UtilityPearlEntity(EntityType<UtilityPearlEntity> entityType, Level level) {
         super(entityType,level);
+        this.world = level;
     }
 
     @Override
@@ -71,7 +78,6 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
             }
         }
     }
-
     @Override
     protected void onHitBlock(BlockHitResult result) {
     }
@@ -84,18 +90,30 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     @Override
     public void tick() {
         super.tick();
-        lifeTime++;
-        if (lifeTime > LIFETIME_TICKS) {
-            returnToPlayer();
-            discard();
+        if(!world.isClientSide) {
+            lifeTime++;
+            if (lifeTime > UtilityPearlData.get(((ServerLevel) world)).getLifetime()) {
+                returnToPlayer();
+                discard();
+            }
         }
     }
     private void returnToPlayer() {
         if (this.getOwner() instanceof Player player && item != null) {
             ItemStack newItem = new ItemStack(item);
             newItem.set(DataComponents.POTION_CONTENTS,contents);
-            if (!player.getInventory().add(newItem)){
-                player.drop(newItem, false);
+            if(!player.hasInfiniteMaterials()) {
+                if (!player.getInventory().add(newItem)) {
+                    player.drop(newItem, false);
+                } else {
+                    level().playSound(
+                            null,
+                            this.getOwner().getX(), this.getOwner().getY() + 0.5, this.getOwner().getZ(),
+                            SoundEvents.ITEM_PICKUP,
+                            SoundSource.PLAYERS,
+                            0.2F,
+                            ((level().random.nextFloat() - level().random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                }
             }
         }
     }

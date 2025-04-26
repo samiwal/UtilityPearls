@@ -8,6 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.whale.UtilityPearls.UtilityPearls;
+import net.whale.UtilityPearls.command.UtilityPearlData;
 import net.whale.UtilityPearls.entity.custom.UtilityPearlEntity;
 
 public class ModEntities {
@@ -18,7 +19,7 @@ public class ModEntities {
    public static RegistryObject<EntityType<UtilityPearlEntity>> registerHelper(String name) {
        return ENTITY_TYPES.register(name,
                () -> EntityType.Builder.<UtilityPearlEntity>of(UtilityPearlEntity::new, MobCategory.MISC)
-                       .sized(0.3F, 0.3F)
+                       .sized(0.3F,0.3F )
                        .clientTrackingRange(6)
                        .updateInterval(10)
                        .build(ResourceLocation.fromNamespaceAndPath(UtilityPearls.MOD_ID,name).toString()));}
