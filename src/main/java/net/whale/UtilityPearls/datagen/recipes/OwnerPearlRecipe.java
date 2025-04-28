@@ -15,29 +15,24 @@ public class OwnerPearlRecipe extends CustomRecipe {
     }
     @Override
     public boolean matches(CraftingInput pInv, Level pLevel) {
-        System.out.println("Recipe Started");
         if (pInv.width() == 3 && pInv.height() == 3) {
             for (int i = 0; i < pInv.width(); i++) {
                 for (int j = 0; j < pInv.height(); j++) {
                     ItemStack itemstack = pInv.getItem(i, j);
                     if (itemstack.isEmpty()) {
-                        System.out.println("Empty");
                         return false;
                     }
                     if (i == 2 && j == 2) {
                         if (!itemstack.is(Items.POTION)) {
-                            System.out.println("No Potion");
                             return false;
                         }
                     } else if (!itemstack.is(ModItems.UTILITY_PEARL.get())) {
-                        System.out.println("No Pearl");
                         return false;
                     }
                 }
             }
             return true;
         } else {
-            System.out.println("Wrong Size");
             return false;
         }
     }
@@ -52,14 +47,12 @@ public class OwnerPearlRecipe extends CustomRecipe {
             return itemstack1;
         }
     }
-
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return pWidth >= 3 && pHeight >= 3;
     }
     @Override
     public RecipeSerializer<?> getSerializer() {
-        System.out.println("Serializer Found");
         return ModRecipeSerializers.OWNER_PEARL_RECIPE.get();
     }
 }
