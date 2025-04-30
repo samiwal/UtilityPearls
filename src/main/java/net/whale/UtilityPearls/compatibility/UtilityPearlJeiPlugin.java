@@ -14,6 +14,9 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.whale.UtilityPearls.Item.ModItems;
 import net.whale.UtilityPearls.UtilityPearls;
+import net.whale.UtilityPearls.compatibility.jeiExtended.CustomStackHelper;
+import net.whale.UtilityPearls.compatibility.jeiExtended.CustomSubtypeInterpreters;
+import net.whale.UtilityPearls.compatibility.jeiExtended.CustomSubtypeManager;
 
 @JeiPlugin
 public class UtilityPearlJeiPlugin implements IModPlugin {
