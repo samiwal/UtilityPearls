@@ -13,6 +13,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.whale.UtilityPearls.Item.ModItems;
+import net.whale.UtilityPearls.command.ModCommands;
 import net.whale.UtilityPearls.datagen.ModRecipeSerializers;
 import net.whale.UtilityPearls.entity.ModEntities;
 import org.slf4j.Logger;
@@ -86,6 +88,13 @@ public class UtilityPearls
                     ModItems.UTILITY_PEARL_HIT_ENTITY.get(),
                     ModItems.UTILITY_PEARL_OWNER.get()
             );
+        }
+    }
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = "utility_pearls")
+    public static class CommonForgeEvents {
+        @SubscribeEvent
+        public static void onRegisterCommands(RegisterCommandsEvent event) {
+            ModCommands.register(event.getDispatcher());
         }
     }
 }

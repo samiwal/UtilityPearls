@@ -1,7 +1,9 @@
+
 package net.whale.UtilityPearls.datagen.recipes;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -11,44 +13,57 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.whale.UtilityPearls.Item.ModItems;
 import net.whale.UtilityPearls.datagen.ModRecipeSerializers;
+import org.jetbrains.annotations.NotNull;
 
 public class HitEntityPearlRecipe extends CustomRecipe {
     public HitEntityPearlRecipe(CraftingBookCategory pCategory) {
         super(pCategory);
     }
 
+    @Override
     public boolean matches(CraftingContainer pInv, Level pLevel) {
-        if (pInv.getWidth() == 3 && pInv.getHeight() == 3) {
-            for (int i = 0; i < pInv.getWidth(); i++) {
-                for (int j = 0; j < pInv.getHeight(); j++) {
-                    ItemStack itemstack = pInv.getItem(i + j * pInv.getWidth());
-                    if (itemstack.isEmpty()) {
-                        return false;
-                    }
-                    if (i == 0 && j == 0) {
-                        if (!itemstack.is(Items.POTION)) {
-                            return false;
-                        }
-                    } else if (!itemstack.is(ModItems.UTILITY_PEARL.get())) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        } else {
+        int count = 0;
+        int size = pInv.getWidth() -1 + pInv.getWidth() * (pInv.getHeight()-1);
+        ItemStack potionStack = pInv.getItem(0);
+        if(!potionStack.is(Items.POTION)){
             return false;
         }
+        for (int i = 1; i <= size; i++) {
+            if(!pInv.getItem(i).isEmpty()) {
+                ItemStack itemstack = pInv.getItem(i);
+                if (itemstack.is(ModItems.UTILITY_PEARL.get())) {
+                    count++;
+                }
+            }
+        }
+        if(count == 2 && getInstantaniousPotioneffect(potionStack)) {
+            return true;
+        }
+        return count == 8 && !getInstantaniousPotioneffect(potionStack);
     }
-
-    public ItemStack assemble(CraftingContainer p_44513_, HolderLookup.Provider p_333824_) {
+    @Override
+    public @NotNull ItemStack assemble(CraftingContainer p_44513_, HolderLookup.Provider p_333824_) {
         ItemStack itemstack = p_44513_.getItem(0);
         if (!itemstack.is(Items.POTION)) {
             return ItemStack.EMPTY;
-        } else {
+        } else if (getInstantaniousPotioneffect(itemstack)){
+            ItemStack itemstack1 = new ItemStack(ModItems.UTILITY_PEARL_HIT_ENTITY.get(), 2);
+            itemstack1.set(DataComponents.POTION_CONTENTS, itemstack.get(DataComponents.POTION_CONTENTS));
+            return itemstack1;
+        } else if (!getInstantaniousPotioneffect(itemstack)) {
             ItemStack itemstack1 = new ItemStack(ModItems.UTILITY_PEARL_HIT_ENTITY.get(), 8);
             itemstack1.set(DataComponents.POTION_CONTENTS, itemstack.get(DataComponents.POTION_CONTENTS));
             return itemstack1;
         }
+        return ItemStack.EMPTY;
+    }
+    public boolean getInstantaniousPotioneffect(ItemStack stack){
+        for (MobEffectInstance effect : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
+            if (effect.getEffect().value().isInstantenous()) {
+                return true;
+            }
+        }
+        return false;
     }
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
