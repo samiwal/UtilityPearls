@@ -1,4 +1,4 @@
-package net.whale.UtilityPearls.compatibility;
+package net.whale.UtilityPearls.compatibility.jeiExtended;
 
 import mezz.jei.api.helpers.IStackHelper;
 import mezz.jei.api.ingredients.subtypes.UidContext;

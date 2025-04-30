@@ -8,10 +8,12 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -44,38 +46,7 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     protected void onHit(HitResult pResult) {
         if (pResult instanceof EntityHitResult entityHitResult) {
             super.onHit(pResult);
-            PotionContents contents = getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-            if(applyTo == 1)
-                for (MobEffectInstance effect : contents.getAllEffects()) {
-                    if (effect.getEffect().value().isInstantenous()) {
-                        effect.getEffect().value().applyInstantenousEffect(this, player, player, effect.getAmplifier(),1.0);
-                    } else {
-                        player.addEffect(new MobEffectInstance(
-                                effect.getEffect(),
-                                effect.getDuration() / 4,
-                                effect.getAmplifier(),
-                                effect.isAmbient(),
-                                effect.isVisible(),
-                                effect.showIcon()
-                        ));
-                    }
-                }
-            else if(applyTo == 2 && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
-                for (MobEffectInstance effect : contents.getAllEffects()) {
-                    if (effect.getEffect().value().isInstantenous()) {
-                        effect.getEffect().value().applyInstantenousEffect(this, player, livingEntity, effect.getAmplifier(),1.0);
-                    } else {
-                        livingEntity.addEffect(new MobEffectInstance(
-                                effect.getEffect(),
-                                effect.getDuration() / 4,
-                                effect.getAmplifier(),
-                                effect.isAmbient(),
-                                effect.isVisible(),
-                                effect.showIcon()
-                        ));
-                    }
-                }
-            }
+            onHitEntity(entityHitResult);
         }
     }
     @Override
@@ -83,14 +54,55 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult pResult) {
-
+    protected void onHitEntity(EntityHitResult entityHitResult) {
+        PotionContents contents = getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+        if (applyTo == 1)
+            for (MobEffectInstance effect : contents.getAllEffects()) {
+                if (effect.getEffect().value().isInstantenous()) {
+                    effect.getEffect().value().applyInstantenousEffect(this, player, player, effect.getAmplifier(), 0.5);
+                } else {
+                    player.addEffect(new MobEffectInstance(
+                            effect.getEffect(),
+                            effect.getDuration() / 4,
+                            effect.getAmplifier(),
+                            effect.isAmbient(),
+                            effect.isVisible(),
+                            effect.showIcon()
+                    ));
+                }
+            }
+        else if (applyTo == 2 && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
+            for (MobEffectInstance effect : contents.getAllEffects()) {
+                if (effect.getEffect().value().isInstantenous()) {
+                    effect.getEffect().value().applyInstantenousEffect(this, player, livingEntity, effect.getAmplifier(), 0.5);
+                } else {
+                    livingEntity.addEffect(new MobEffectInstance(
+                            effect.getEffect(),
+                            effect.getDuration() / 4,
+                            effect.getAmplifier(),
+                            effect.isAmbient(),
+                            effect.isVisible(),
+                            effect.showIcon()
+                    ));
+                }
+            }
+        }
     }
-
     @Override
     public void tick() {
         super.tick();
         if(!world.isClientSide) {
+            Vec3 start = this.position();
+            Vec3 end = start.add(this.getDeltaMovement());
+
+            HitResult hitResult = ProjectileUtil.getEntityHitResult(this.level(), this, start, end, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0),
+                    entity -> !entity.isSpectator() && entity.isAlive() && entity.isPickable() && entity != this.getOwner()
+            );
+
+            if (hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
+                EntityHitResult entityHitResult = (EntityHitResult) hitResult;
+                onHit(entityHitResult);
+            }
             lifeTime++;
             if (lifeTime > UtilityPearlData.get(((ServerLevel) world)).getLifetime()) {
                 returnToPlayer();

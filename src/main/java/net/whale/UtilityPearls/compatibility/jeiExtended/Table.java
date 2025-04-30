@@ -1,4 +1,4 @@
-package net.whale.UtilityPearls.compatibility;
+package net.whale.UtilityPearls.compatibility.jeiExtended;
 
 import org.jetbrains.annotations.Nullable;
 

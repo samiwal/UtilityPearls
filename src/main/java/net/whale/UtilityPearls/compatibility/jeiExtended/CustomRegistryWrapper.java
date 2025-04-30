@@ -1,4 +1,4 @@
-package net.whale.UtilityPearls.compatibility;
+package net.whale.UtilityPearls.compatibility.jeiExtended;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
