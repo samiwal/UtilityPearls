@@ -2,6 +2,7 @@ package net.whale.UtilityPearls.datagen.recipes;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
@@ -15,37 +16,47 @@ public class OwnerPearlRecipe extends CustomRecipe {
     }
     @Override
     public boolean matches(CraftingInput pInv, Level pLevel) {
-        if (pInv.width() == 3 && pInv.height() == 3) {
-            for (int i = 0; i < pInv.width(); i++) {
-                for (int j = 0; j < pInv.height(); j++) {
-                    ItemStack itemstack = pInv.getItem(i, j);
-                    if (itemstack.isEmpty()) {
-                        return false;
-                    }
-                    if (i == 2 && j == 2) {
-                        if (!itemstack.is(Items.POTION)) {
-                            return false;
-                        }
-                    } else if (!itemstack.is(ModItems.UTILITY_PEARL.get())) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        } else {
+        int count = 0;
+        int size = pInv.width() -1 + pInv.width() * (pInv.height()-1);
+        ItemStack potionStack = pInv.getItem(size);
+        if(!potionStack.is(Items.POTION)){
             return false;
         }
+        for (int i = 0; i <= size; i++) {
+            if(!pInv.getItem(i).isEmpty()) {
+                ItemStack itemstack = pInv.getItem(i);
+                if(i==size){
+                } else if (itemstack.is(ModItems.UTILITY_PEARL.get())) {
+                    count++;
+                }
+            }
+        }
+        if(count == 2 && hasInstantEffect(potionStack)) {
+            return true;
+        }
+        return count == 8 && !hasInstantEffect(potionStack);
     }
     @Override
     public ItemStack assemble(CraftingInput p_44513_, HolderLookup.Provider p_333824_) {
-        ItemStack itemstack = p_44513_.getItem(2 , 2);
-        if (!itemstack.is(Items.POTION)) {
-            return ItemStack.EMPTY;
+        ItemStack itemstack = p_44513_.getItem(p_44513_.width()-1 , p_44513_.height()-1);
+        if (!itemstack.is(Items.POTION) || itemstack.get(DataComponents.POTION_CONTENTS) == null) return ItemStack.EMPTY;
+        if (hasInstantEffect(itemstack)){
+            ItemStack itemstack1 = new ItemStack(ModItems.UTILITY_PEARL_OWNER.get(), 2);
+            itemstack1.set(DataComponents.POTION_CONTENTS, itemstack.get(DataComponents.POTION_CONTENTS));
+            return itemstack1;
         } else {
             ItemStack itemstack1 = new ItemStack(ModItems.UTILITY_PEARL_OWNER.get(), 8);
             itemstack1.set(DataComponents.POTION_CONTENTS, itemstack.get(DataComponents.POTION_CONTENTS));
             return itemstack1;
         }
+    }
+    public boolean hasInstantEffect(ItemStack stack){
+        for (MobEffectInstance effect : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
+            if (effect.getEffect().value().isInstantenous()) {
+                return true;
+            }
+        }
+        return false;
     }
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
