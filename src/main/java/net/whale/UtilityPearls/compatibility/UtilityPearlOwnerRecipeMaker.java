@@ -1,7 +1,6 @@
 package net.whale.UtilityPearls.compatibility;
 
-import mezz.jei.api.helpers.IStackHelper;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -13,43 +12,30 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.*;
 import net.whale.UtilityPearls.Item.ModItems;
 import net.whale.UtilityPearls.UtilityPearls;
-import net.whale.UtilityPearls.compatibility.jeiExtended.CustomJeiIngredient;
-import net.whale.UtilityPearls.compatibility.jeiExtended.CustomRegistryWrapper;
-import net.whale.UtilityPearls.datagen.recipes.OwnerPearlRecipe;
+import net.whale.UtilityPearls.compatibility.jeiExtended.CustomJeiShapedRecipeBuilder;
+import net.whale.UtilityPearls.compatibility.jeiExtended.CustomRegistryUtil;
 
 import java.util.List;
-import java.util.Optional;
 
 public final class UtilityPearlOwnerRecipeMaker {
-
-    public static List<RecipeHolder<CraftingRecipe>> createRecipes(IStackHelper stackHelper) {
+    public static List<RecipeHolder<CraftingRecipe>> createRecipes() {
         String group = "whale.utility_pearl";
         ItemStack pearlStack = new ItemStack(ModItems.UTILITY_PEARL.get());
         Ingredient pearlIngredient = Ingredient.of(pearlStack);
-
-        CustomRegistryWrapper<Potion> potionRegistry = CustomRegistryWrapper.getRegistry(Registries.POTION);
-        return potionRegistry.getHolderStream()
-                .map(potion -> {
+        Registry<Potion> potionRegistry = CustomRegistryUtil.getRegistry(Registries.POTION);
+        return potionRegistry.holders().map(potion -> {
                     ItemStack input = PotionContents.createItemStack(Items.POTION, potion);
                     ItemStack output = PotionContents.createItemStack(ModItems.UTILITY_PEARL_OWNER.get(), potion);
+                    Ingredient potionIngredient = Ingredient.of(input);
+                    CraftingRecipe recipe = new CustomJeiShapedRecipeBuilder(CraftingBookCategory.MISC,List.of(output)).group(group).define('a', pearlIngredient).define('p', potionIngredient).pattern("aaa").pattern("aaa").pattern("aap").build();
                     output.setCount(8);
-                    Ingredient potionIngredient = new CustomJeiIngredient(input, stackHelper);
-                    NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY,
-                            pearlIngredient, pearlIngredient, pearlIngredient,
-                            pearlIngredient, pearlIngredient, pearlIngredient,
-                            pearlIngredient, pearlIngredient, potionIngredient
-                            );
                     for (MobEffectInstance effect : input.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
-                        if (effect.getEffect().value().isInstantenous()){
-                            inputs = NonNullList.of(Ingredient.EMPTY,
-                                pearlIngredient,Ingredient.EMPTY,Ingredient.EMPTY,
-                                Ingredient.EMPTY,pearlIngredient,Ingredient.EMPTY,
-                                Ingredient.EMPTY,Ingredient.EMPTY,potionIngredient);
+                        if (effect.getEffect().value().isInstantenous()) {
+                            recipe = new CustomJeiShapedRecipeBuilder(CraftingBookCategory.MISC,List.of(output)).group(group).define('a', pearlIngredient).define('p', potionIngredient).pattern("a  ").pattern(" a ").pattern("  p").build();
+                            output.setCount(2);
                         }
                     }
                     ResourceLocation id = ResourceLocation.fromNamespaceAndPath(UtilityPearls.MOD_ID, "whale.utility_pearl." + output.getDescriptionId());
-                    ShapedRecipePattern pattern = new ShapedRecipePattern(3, 3, inputs, Optional.empty());
-                    CraftingRecipe recipe = new ShapedRecipe(group, CraftingBookCategory.MISC, pattern, output);
                     return new RecipeHolder<>(id, recipe);
                 })
                 .toList();

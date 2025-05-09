@@ -27,7 +27,7 @@ public class ModCommands {
         UtilityPearlData.get((context.getSource().getLevel())).setLifetime(lifetime);
         context.getSource().sendSuccess(
                 () -> net.minecraft.network.chat.Component.literal(
-                        "Changed lifetime of UtilityPearl in dimension " + getDimension(context) + "to " + lifetime + " ticks"
+                        "Changed lifetime of UtilityPearl in " + getDimension(context) + "to " + lifetime + " ticks"
                 ),true);
         return 1;
     }
@@ -36,11 +36,11 @@ public class ModCommands {
         float speed = FloatArgumentType.getFloat(context,"speed");
         UtilityPearlData.get((context.getSource().getLevel())).setSpeed(speed);
         if(speed > 4.2){
-            context.getSource().sendSystemMessage(Component.literal("Warning: Speeds greater than 4.2 may cause visual glitches!"));
+            context.getSource().sendSystemMessage(Component.literal("Warning: Speeds greater than 4.2 may cause visual and chunk loading glitches!"));
         }
         context.getSource().sendSuccess(
                 () -> Component.literal(
-                        "Changed speed of UtilityPearl in dimension " + getDimension(context) + "to " + speed),
+                        "Changed speed of UtilityPearl in " + getDimension(context) + "to " + speed),
                 true);
         return 1;
     }

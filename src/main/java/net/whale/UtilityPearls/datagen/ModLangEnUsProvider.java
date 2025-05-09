@@ -27,6 +27,8 @@ public class ModLangEnUsProvider extends LanguageProvider {
                     display + "Utility Pearl (Hit Entity)");
         }
         add("item.utility_pearls.utility_pearl.effect.empty","Utility Pearl");
+        add("item.utility_pearls.utility_pearl_owner.effect.empty","Every Utility Pearl (Owner)");
+        add("item.utility_pearls.utility_pearl_hit_entity.effect.empty","Every Utility Pearl (Hit Entity)");
     }
 
     private String toReadableName(String path) {

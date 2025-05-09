@@ -1,23 +1,273 @@
-[29Apr.2025 18:47:46.177] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_userdev_data, --assetIndex, 17, --assetsDir, C:\Users\annam\.gradle\caches\forge_gradle\assets, --gameDir, ., --mod, utility_pearls, --all, --output, C:\Users\annam\Documents\Forge_1.21\src\generated\resources, --existing, C:\Users\annam\Documents\Forge_1.21\src\main\resources]
-[29Apr.2025 18:47:46.202] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.5+11-LTS
-[29Apr.2025 18:47:46.207] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.2.1 starting: java version 21.0.5 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
-[29Apr.2025 18:47:46.400] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_userdev_data
-[29Apr.2025 18:47:47.176] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=jar:file:///C:/Users/annam/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.7/8ab114ac385e6dbdad5efafe28aba4df8120915f/mixin-0.8.7.jar!/ Service=ModLauncher Env=UNKNOWN
-[29Apr.2025 18:47:49.093] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[29Apr.2025 18:47:50.878] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_userdev_data' with arguments [--gameDir, ., --assetsDir, C:\Users\annam\.gradle\caches\forge_gradle\assets, --assetIndex, 17, --mod, utility_pearls, --all, --output, C:\Users\annam\Documents\Forge_1.21\src\generated\resources, --existing, C:\Users\annam\Documents\Forge_1.21\src\main\resources]
-[29Apr.2025 18:48:02.560] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 51.0.33, for MC 1.21 with MCP 20240613.102039
-[29Apr.2025 18:48:02.560] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v51.0.33 Initialized
-[29Apr.2025 18:48:02.621] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
-[29Apr.2025 18:48:03.365] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
-[29Apr.2025 18:48:03.375] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 8.357 ms
-[29Apr.2025 18:48:04.527] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [utility_pearls]
-[29Apr.2025 18:48:04.652] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/annam/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_official_1.21/forge-1.21-51.0.33_mapped_official_1.21-recomp.jar%230!/assets/.mcassetsroot' uses unexpected schema
-[29Apr.2025 18:48:04.653] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/annam/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_official_1.21/forge-1.21-51.0.33_mapped_official_1.21-recomp.jar%230!/data/.mcassetsroot' uses unexpected schema
-[29Apr.2025 18:48:04.920] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[29Apr.2025 18:48:05.474] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 553 ms
-[29Apr.2025 18:48:05.476] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: utility_pearls
-[29Apr.2025 18:48:05.487] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: utility_pearls finished after 10 ms
-[29Apr.2025 18:48:05.487] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us
-[29Apr.2025 18:48:05.493] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us finished after 4 ms
-[29Apr.2025 18:48:05.493] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 574 ms
-[29Apr.2025 18:48:05.500] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 6, old count: 6, new count: 7, removed stale: 0, written: 0
+[08Mai2025 09:03:53.640] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_userdev_data, --assetIndex, 17, --assetsDir, C:\Users\samue\.gradle\caches\forge_gradle\assets, --gameDir, ., --mod, utility_pearls, --all, --output, C:\Users\samue\Documents\Forge_1.21\src\generated\resources, --existing, C:\Users\samue\Documents\Forge_1.21\src\main\resources]
+[08Mai2025 09:03:53.733] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.5+11-LTS
+[08Mai2025 09:03:53.734] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.2.4 starting: java version 21.0.5 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[08Mai2025 09:03:53.908] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_userdev_data
+[08Mai2025 09:03:54.102] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=jar:file:///C:/Users/samue/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.7/8ab114ac385e6dbdad5efafe28aba4df8120915f/mixin-0.8.7.jar!/ Service=ModLauncher Env=UNKNOWN
+[08Mai2025 09:03:56.117] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[08Mai2025 09:03:57.413] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_userdev_data' with arguments [--gameDir, ., --assetsDir, C:\Users\samue\.gradle\caches\forge_gradle\assets, --assetIndex, 17, --mod, utility_pearls, --all, --output, C:\Users\samue\Documents\Forge_1.21\src\generated\resources, --existing, C:\Users\samue\Documents\Forge_1.21\src\main\resources]
+[08Mai2025 09:04:06.043] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 52.1.0, for MC 1.21.1 with MCP 20240808.132146
+[08Mai2025 09:04:06.043] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v52.1.0 Initialized
+[08Mai2025 09:04:06.160] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
+[08Mai2025 09:04:06.554] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'DebugMode' is not a valid config key for config category 'debug'.
+Valid keys: [debugMode, debugGuis, debugInputs, debugInfoTooltipsEnabled, crashingTestItemsEnabled, logSuffixTreeStats]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-debug.ini
+Line #5: "	DebugMode = false"
+[08Mai2025 09:04:06.554] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'DebugGuis' is not a valid config key for config category 'debug'.
+Valid keys: [debugMode, debugGuis, debugInputs, debugInfoTooltipsEnabled, crashingTestItemsEnabled, logSuffixTreeStats]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-debug.ini
+Line #10: "	DebugGuis = false"
+[08Mai2025 09:04:06.555] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'DebugInputs' is not a valid config key for config category 'debug'.
+Valid keys: [debugMode, debugGuis, debugInputs, debugInfoTooltipsEnabled, crashingTestItemsEnabled, logSuffixTreeStats]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-debug.ini
+Line #15: "	DebugInputs = false"
+[08Mai2025 09:04:06.556] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'DebugIngredients' is not a valid config key for config category 'debug'.
+Valid keys: [debugMode, debugGuis, debugInputs, debugInfoTooltipsEnabled, crashingTestItemsEnabled, logSuffixTreeStats]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-debug.ini
+Line #20: "	DebugIngredients = true"
+[08Mai2025 09:04:06.557] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'CrashingTestItemsEnabled' is not a valid config key for config category 'debug'.
+Valid keys: [debugMode, debugGuis, debugInputs, debugInfoTooltipsEnabled, crashingTestItemsEnabled, logSuffixTreeStats]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-debug.ini
+Line #25: "	CrashingTestItemsEnabled = false"
+[08Mai2025 09:04:06.563] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: '[modname]' is not a valid category name.
+Valid names are: [modName]
+Skipping all values until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-mod-id-format.ini
+Line #1: "[modname]"
+[08Mai2025 09:04:06.563] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-mod-id-format.ini
+Line #9: "	ModNameFormat = blue italic"
+[08Mai2025 09:04:06.567] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'SearchColors' is not a valid config key for config category 'colors'.
+Valid keys: [searchColors]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-colors.ini
+Line #6: "	SearchColors = White:EEEEEE, LightBlue:7492CC, Cyan:00EEEE, Blue:2222DD, LapisBlue:25418B, Teal:008080, Yellow:CACB58, GoldenYellow:EED700, Orange:D97634, Pink:D1899D, HotPink:FC0FC0, Magenta:B24BBB, Purple:813EB9, EvilPurple:2E1649, Lavender:B57EDC, Indigo:480082, Sand:DBD3A0, Tan:BB9B63, LightBrown:A0522D, Brown:634B33, DarkBrown:3A2D13, LimeGreen:43B239, SlimeGreen:83CB73, Green:008000, DarkGreen:224D22, GrassGreen:548049, Red:963430, BrickRed:B0604B, NetherBrick:2A1516, Redstone:CE3E36, Black:181515, CharcoalGray:464646, IronGray:646464, Gray:808080, Silver:C0C0C0"
+[08Mai2025 09:04:06.703] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'CenterSearch' is not a valid config key for config category 'appearance'.
+Valid keys: [centerSearch, recipeGuiHeight]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #5: "	CenterSearch = false"
+[08Mai2025 09:04:06.705] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'RecipeGuiHeight' is not a valid config key for config category 'appearance'.
+Valid keys: [centerSearch, recipeGuiHeight]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #10: "	RecipeGuiHeight = 350"
+[08Mai2025 09:04:06.706] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: '[cheat_mode]' is not a valid category name.
+Valid names are: [appearance, cheating, bookmarks, tooltips, performance, lookups, advanced, input, sorting, search, ingredientList, bookmarkList]
+Skipping all values until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #13: "[cheat_mode]"
+[08Mai2025 09:04:06.706] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #17: "	GiveMode = MOUSE_PICKUP"
+[08Mai2025 09:04:06.707] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #22: "	CheatToHotbarUsingHotkeysEnabled = false"
+[08Mai2025 09:04:06.710] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #27: "	ShowHiddenItems = false"
+[08Mai2025 09:04:06.767] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'AddBookmarksToFrontEnabled' is not a valid config key for config category 'bookmarks'.
+Valid keys: [addBookmarksToFrontEnabled, dragToRearrangeBookmarksEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #34: "	AddBookmarksToFrontEnabled = false"
+[08Mai2025 09:04:06.812] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'BookmarkTooltipFeatures' is not a valid config key for config category 'bookmarks'.
+Valid keys: [addBookmarksToFrontEnabled, dragToRearrangeBookmarksEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #40: "	BookmarkTooltipFeatures = PREVIEW"
+[08Mai2025 09:04:06.847] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'HoldShiftToShowBookmarkTooltipFeatures' is not a valid config key for config category 'bookmarks'.
+Valid keys: [addBookmarksToFrontEnabled, dragToRearrangeBookmarksEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #45: "	HoldShiftToShowBookmarkTooltipFeatures = true"
+[08Mai2025 09:04:06.900] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'DragToRearrangeBookmarksEnabled' is not a valid config key for config category 'bookmarks'.
+Valid keys: [addBookmarksToFrontEnabled, dragToRearrangeBookmarksEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #50: "	DragToRearrangeBookmarksEnabled = true"
+[08Mai2025 09:04:06.901] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'LowMemorySlowSearchEnabled' is not a valid config key for config category 'advanced'.
+Valid keys: [catchRenderErrorsEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #57: "	LowMemorySlowSearchEnabled = false"
+[08Mai2025 09:04:06.901] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'CatchRenderErrorsEnabled' is not a valid config key for config category 'advanced'.
+Valid keys: [catchRenderErrorsEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #62: "	CatchRenderErrorsEnabled = false"
+[08Mai2025 09:04:06.902] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'lookupFluidContentsEnabled' is not a valid config key for config category 'advanced'.
+Valid keys: [catchRenderErrorsEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #67: "	lookupFluidContentsEnabled = false"
+[08Mai2025 09:04:06.903] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'lookupBlockTagsEnabled' is not a valid config key for config category 'advanced'.
+Valid keys: [catchRenderErrorsEnabled]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #72: "	lookupBlockTagsEnabled = true"
+[08Mai2025 09:04:06.905] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'IngredientSortStages' is not a valid config key for config category 'sorting'.
+Valid keys: [ingredientSortStages, recipeSorterStages]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #92: "	IngredientSortStages = MOD_NAME, INGREDIENT_TYPE, CREATIVE_MENU"
+[08Mai2025 09:04:06.906] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'RecipeSorterStages' is not a valid config key for config category 'sorting'.
+Valid keys: [ingredientSortStages, recipeSorterStages]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #98: "	RecipeSorterStages = BOOKMARKED, CRAFTABLE"
+[08Mai2025 09:04:06.907] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: '[tags]' is not a valid category name.
+Valid names are: [appearance, cheating, bookmarks, tooltips, performance, lookups, advanced, input, sorting, search, ingredientList, bookmarkList]
+Skipping all values until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #101: "[tags]"
+[08Mai2025 09:04:06.907] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #105: "	TagContentTooltipEnabled = true"
+[08Mai2025 09:04:06.907] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #110: "	HideSingleIngredientTagsEnabled = true"
+[08Mai2025 09:04:06.908] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'ModNameSearchMode' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #117: "	ModNameSearchMode = REQUIRE_PREFIX"
+[08Mai2025 09:04:06.908] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'TooltipSearchMode' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #122: "	TooltipSearchMode = ENABLED"
+[08Mai2025 09:04:06.909] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'TagSearchMode' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #127: "	TagSearchMode = REQUIRE_PREFIX"
+[08Mai2025 09:04:06.909] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'ColorSearchMode' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #132: "	ColorSearchMode = DISABLED"
+[08Mai2025 09:04:06.909] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'ResourceLocationSearchMode' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #137: "	ResourceLocationSearchMode = DISABLED"
+[08Mai2025 09:04:06.910] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'SearchAdvancedTooltips' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #142: "	SearchAdvancedTooltips = false"
+[08Mai2025 09:04:06.924] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'SearchModIds' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #147: "	SearchModIds = true"
+[08Mai2025 09:04:06.926] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'SearchModAliases' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #152: "	SearchModAliases = true"
+[08Mai2025 09:04:06.927] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: 'SearchShortModNames' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, resourceLocationSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #157: "	SearchShortModNames = true"
+[08Mai2025 09:04:06.930] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: '[IngredientList]' is not a valid category name.
+Valid names are: [appearance, cheating, bookmarks, tooltips, performance, lookups, advanced, input, sorting, search, ingredientList, bookmarkList]
+Skipping all values until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #160: "[IngredientList]"
+[08Mai2025 09:04:06.930] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #164: "	MaxRows = 16"
+[08Mai2025 09:04:06.931] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #169: "	MaxColumns = 9"
+[08Mai2025 09:04:06.931] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #174: "	HorizontalAlignment = RIGHT"
+[08Mai2025 09:04:06.932] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #179: "	VerticalAlignment = TOP"
+[08Mai2025 09:04:06.932] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #184: "	ButtonNavigationVisibility = ENABLED"
+[08Mai2025 09:04:06.933] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #189: "	DrawBackground = false"
+[08Mai2025 09:04:06.933] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: '[BookmarkList]' is not a valid category name.
+Valid names are: [appearance, cheating, bookmarks, tooltips, performance, lookups, advanced, input, sorting, search, ingredientList, bookmarkList]
+Skipping all values until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #192: "[BookmarkList]"
+[08Mai2025 09:04:06.933] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #196: "	MaxRows = 16"
+[08Mai2025 09:04:06.933] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #201: "	MaxColumns = 9"
+[08Mai2025 09:04:06.933] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #206: "	HorizontalAlignment = LEFT"
+[08Mai2025 09:04:06.936] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #211: "	VerticalAlignment = TOP"
+[08Mai2025 09:04:06.937] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #216: "	ButtonNavigationVisibility = ENABLED"
+[08Mai2025 09:04:06.937] [modloading-worker-0/ERROR] [mezz.jei.common.config.file.ConfigSerializer/]: Expected a '[category]' here.
+Configs must start with a category before defining values.
+Skipping all lines until the first valid category is declared.
+Config file: C:\Users\samue\Documents\Forge_1.21\run-data\config\jei\jei-client.ini
+Line #221: "	DrawBackground = false"
+[08Mai2025 09:04:06.941] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[08Mai2025 09:04:06.947] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 4.419 ms
+[08Mai2025 09:04:07.365] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [utility_pearls]
+[08Mai2025 09:04:07.511] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/samue/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21.1-52.1.0_mapped_official_1.21.1/forge-1.21.1-52.1.0_mapped_official_1.21.1-recomp.jar%230!/assets/.mcassetsroot' uses unexpected schema
+[08Mai2025 09:04:07.512] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/samue/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21.1-52.1.0_mapped_official_1.21.1/forge-1.21.1-52.1.0_mapped_official_1.21.1-recomp.jar%230!/data/.mcassetsroot' uses unexpected schema
+[08Mai2025 09:04:07.719] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[08Mai2025 09:04:08.091] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 371 ms
+[08Mai2025 09:04:08.092] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: utility_pearls
+[08Mai2025 09:04:08.101] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: utility_pearls finished after 8 ms
+[08Mai2025 09:04:08.101] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us
+[08Mai2025 09:04:08.104] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us finished after 3 ms
+[08Mai2025 09:04:08.105] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 386 ms
+[08Mai2025 09:04:08.110] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 10, old count: 10, new count: 11, removed stale: 0, written: 0

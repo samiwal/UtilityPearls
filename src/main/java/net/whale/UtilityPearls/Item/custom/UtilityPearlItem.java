@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.whale.UtilityPearls.command.UtilityPearlData;
 import net.whale.UtilityPearls.entity.ModEntities;
 import net.whale.UtilityPearls.entity.custom.UtilityPearlEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -30,9 +31,8 @@ public class UtilityPearlItem extends EnderpearlItem {
         super(properties);
         this.applyTo = applyTo;
     }
-
     @Override
-    public ItemStack getDefaultInstance() {
+    public @NotNull ItemStack getDefaultInstance() {
         ItemStack itemstack = super.getDefaultInstance();
         itemstack.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.POISON));
         return itemstack;
@@ -45,8 +45,8 @@ public class UtilityPearlItem extends EnderpearlItem {
         }
     }
     @Override
-    public String getDescriptionId(ItemStack pStack) {
-        return Potion.getName(pStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).potion(), this.getDescriptionId() + ".effect.");
+    public @NotNull String getDescriptionId(ItemStack pStack) {
+        return Potion.getName(pStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).potion(), super.getOrCreateDescriptionId() + ".effect.");
     }
 
     @Override
@@ -62,9 +62,9 @@ public class UtilityPearlItem extends EnderpearlItem {
                 0.5F,
                 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F)
         );
-        pPlayer.getCooldowns().addCooldown(this, 10);
+        pPlayer.getCooldowns().addCooldown(this, 60);
         if (!pLevel.isClientSide) {
-            UtilityPearlEntity utilityPearl = new UtilityPearlEntity(ModEntities.UTILITY_PEARL.get(), pLevel,pPlayer,applyTo,itemstack.getItem(),itemstack.get(DataComponents.POTION_CONTENTS));
+            UtilityPearlEntity utilityPearl = new UtilityPearlEntity(ModEntities.UTILITY_PEARL.get(), pLevel,pPlayer, applyTo,itemstack.getItem(),itemstack.get(DataComponents.POTION_CONTENTS));
             utilityPearl.setPos(pPlayer.getX(),pPlayer.getEyeY(),pPlayer.getZ());
             utilityPearl.setOwner(pPlayer);
             utilityPearl.setItem(itemstack);

@@ -31,28 +31,26 @@ public class OwnerPearlRecipe extends CustomRecipe {
                 }
             }
         }
-        if(count == 2 && getInstantaniousPotioneffect(potionStack)) {
+        if(count == 2 && hasInstantEffect(potionStack)) {
             return true;
         }
-        return count == 8 && !getInstantaniousPotioneffect(potionStack);
+        return count == 8 && !hasInstantEffect(potionStack);
     }
     @Override
     public ItemStack assemble(CraftingInput p_44513_, HolderLookup.Provider p_333824_) {
         ItemStack itemstack = p_44513_.getItem(p_44513_.width()-1 , p_44513_.height()-1);
-        if (!itemstack.is(Items.POTION)) {
-            return ItemStack.EMPTY;
-        } else if (getInstantaniousPotioneffect(itemstack)){
+        if (!itemstack.is(Items.POTION) || itemstack.get(DataComponents.POTION_CONTENTS) == null) return ItemStack.EMPTY;
+        if (hasInstantEffect(itemstack)){
             ItemStack itemstack1 = new ItemStack(ModItems.UTILITY_PEARL_OWNER.get(), 2);
             itemstack1.set(DataComponents.POTION_CONTENTS, itemstack.get(DataComponents.POTION_CONTENTS));
             return itemstack1;
-        } else if (!getInstantaniousPotioneffect(itemstack)) {
+        } else {
             ItemStack itemstack1 = new ItemStack(ModItems.UTILITY_PEARL_OWNER.get(), 8);
             itemstack1.set(DataComponents.POTION_CONTENTS, itemstack.get(DataComponents.POTION_CONTENTS));
             return itemstack1;
         }
-        return ItemStack.EMPTY;
     }
-    public boolean getInstantaniousPotioneffect(ItemStack stack){
+    public boolean hasInstantEffect(ItemStack stack){
         for (MobEffectInstance effect : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
             if (effect.getEffect().value().isInstantenous()) {
                 return true;
