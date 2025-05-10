@@ -1,7 +1,6 @@
 package net.whale.UtilityPearls.entity.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.SoundEvents;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,10 +31,9 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     private static final TicketType<UtilityPearlEntity> PEARL_TICKET = TicketType.create("utility_pearl", (a,b) -> 0);
     private final Set<ChunkPos> loadedChunks = new HashSet<>();
     private Item item;
-    private Level world;
+    private final Level world;
     private int applyTo;
     private PotionContents contents;
-    private Vec3 newPos;
     private Entity owner;
     private boolean doDamage;
     public UtilityPearlEntity(EntityType<? extends ThrownEnderpearl> entityType, Level world,Entity owner, int applyTo, Item item,PotionContents contents) {
@@ -47,7 +44,9 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
         this.item = item;
         this.contents = contents;
         this.owner = owner;
-
+        Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),this.getBoundingBox(),this.getBoundingBox().inflate(0.5), e -> !e.isSpectator() && e.isPickable() && e != this.owner);
+        hitresult.ifPresent(this::onHit);
+        loadChunksAhead();
     }
     public UtilityPearlEntity(EntityType<UtilityPearlEntity> entityType, Level level) {
         super(entityType,level);
@@ -59,13 +58,9 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
         if (!(pResult instanceof EntityHitResult hitRes)) {
             return;
         }
-        Entity hitEntity = hitRes.getEntity();
-        if (owner == null || hitEntity == owner) {
-            return;
-        }
         if (owner instanceof ServerPlayer player && this.level() instanceof ServerLevel server) {
-            onHitEntityNew(hitRes);
-            if (player.isSleeping() && player.getSleepingPos().isPresent()) {
+            onHitEntity(hitRes);
+            if (player.isSleeping()) {
                 player.stopSleepInBed(true, true);
             }
             if (player.isPassenger()) {
@@ -73,7 +68,7 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
             }
             var evt = net.minecraftforge.event.ForgeEventFactory.onEnderPearlLand(
                     player, this.getX(), this.getY(), this.getZ(),
-                    this, 5.0F, pResult);
+                    this, 7.0F, pResult);
             if (evt.isCanceled()) {
                 discard();
                 return;
@@ -88,7 +83,6 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
                 }
             }
             player.resetFallDistance();
-            doDamage = true;
             Vec3 tpPosition = hitRes.getEntity().position().subtract(owner.getLookAngle().normalize().scale(1.5)).add(0,1.0,0);
             player.teleportTo(tpPosition.x,tpPosition.y,tpPosition.z);
             server.playSound(null,
@@ -97,15 +91,14 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
                     SoundSource.PLAYERS,
                     1.0F, 1.0F
             );
+            doDamage = true;
         }
     }
     @Override
     protected void onHitBlock(@NotNull BlockHitResult result) {}
 
     @Override
-    protected void onHitEntity(EntityHitResult pResult) {}
-
-    protected void onHitEntityNew(@NotNull EntityHitResult entityHitResult) {
+    protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
         PotionContents contents = getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
         if (applyTo == 1) {
             for (MobEffectInstance effect : contents.getAllEffects()) {
@@ -166,15 +159,40 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
                 } else if (!this.world.dimension().equals(owner.level().dimension())) {
                     returnToPlayer();
                 }
-                checkEntityCollision();
+                Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),this.getBoundingBox(),this.getBoundingBox().inflate(0.5), e -> !e.isSpectator() && e.isPickable() && e != this.owner);
+                hitresult.ifPresent(this::onHit);
                 loadChunksAhead();
             }
         }
     }
 
     @Override
-    protected @NotNull ProjectileDeflection hitTargetOrDeflectSelf(@NotNull HitResult p_329816_) {
+    protected @NotNull ProjectileDeflection hitTargetOrDeflectSelf(@NotNull HitResult hitResult) {
+        if(hitResult instanceof BlockHitResult){
+            findHitResultThroughBlock();
+        } else {
+            onHit(hitResult);
+        }
         return ProjectileDeflection.NONE;
+    }
+    public List<AABB> getPossibleHitPoints(){
+        List<AABB> boxList = new ArrayList<>();
+        double tryPoints = getDeltaMovement().lengthSqr()*3;
+        for (double i = 0; i<= tryPoints; i++) {
+            Vec3 point = position().add(getDeltaMovement().scale(i/ tryPoints));
+            boxList.add(new AABB(point.subtract(0.15,0.15,0.15),point.add(0.15,0.15,0.15)));
+        }
+        return boxList;
+    }
+
+    private void findHitResultThroughBlock() {
+        for (AABB box : getPossibleHitPoints()){
+            Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),box,box.inflate(0.5),e -> !e.isSpectator() && e.isPickable() && e != this.owner);
+            if(hitresult.isPresent()){
+                onHit(hitresult.get());
+                return;
+            }
+        }
     }
 
     private void loadChunksAhead() {
@@ -207,21 +225,10 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     public boolean canChangeDimensions(@NotNull Level p_343286_, @NotNull Level p_343504_) {
         return false;
     }
-    private void checkEntityCollision() {
-        if(this.newPos == null){
-            this.newPos = this.position();
-        }
-        Vec3 oldPos = this.newPos;
-        this.newPos = this.position();
-        EntityHitResult entityhitresult = getModEntityHitResult(this.level(),this,oldPos,this.newPos,new AABB(oldPos,this.newPos).inflate(1.5), e -> !e.isSpectator() && e.isPickable() && e != this.owner,0.25F);
-        if(entityhitresult != null){
-            onHit(entityhitresult);
-        }
-    }
     @Override
-    public void remove(RemovalReason p_146834_) {
+    public void remove(RemovalReason reason) {
         unloadChunks();
-        super.remove(p_146834_);
+        super.remove(reason);
     }
     private void returnToPlayer() {
         if (this.owner instanceof Player sameplayer && item != null) {
@@ -244,36 +251,15 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
         discard();
     }
     @Nullable
-    public static EntityHitResult getModEntityHitResult(
-            Level p_150176_, Entity p_150177_, Vec3 p_150178_, Vec3 p_150179_, AABB p_150180_, Predicate<Entity> p_150181_, float p_150182_
+    public Optional<EntityHitResult> getModEntityHitResult(
+            Level level, AABB aabb, AABB searchbox, Predicate<Entity> predicate
     ) {
-        double d0 = Double.MAX_VALUE;
-        Entity entity = null;
-        for (Entity entity1 : p_150176_.getEntities(p_150177_, p_150180_, p_150181_)) {
-            ModAABB aabb = new ModAABB(entity1.getBoundingBox().getMinPosition(),entity1.getBoundingBox().getMaxPosition());
-            aabb.inflate(p_150182_);
-            Optional<Vec3> optional = aabb.clip(p_150178_, p_150179_);
-            if (optional.isPresent()) {
-                double d1 = p_150178_.distanceToSqr(optional.get());
-                if (d1 < d0) {
-                    entity = entity1;
-                    d0 = d1;
-                }
-            }
-            for (Vec3 point : aabb.getPossibleHitPoints(p_150178_,p_150179_)){
-                Optional<Vec3> optional1 = aabb.isPointInEntity(point);
-                if(optional1.isPresent()){
-                    double d1 = p_150178_.distanceToSqr(optional1.get());
-                    if (d1 < d0) {
-                        entity = entity1;
-                        d0 = d1;
-                    }
-                }
+        for (Entity entity : level.getEntities(this, searchbox, predicate)) {
+            AABB aabb1 = entity.getBoundingBox();
+            if(aabb1.intersects(aabb)){
+                return Optional.of(new EntityHitResult(entity));
             }
         }
-        if(entity != null){
-            return new EntityHitResult(entity);
-        }
-        return null;
+        return Optional.empty();
     }
 }
