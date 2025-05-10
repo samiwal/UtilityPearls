@@ -62,7 +62,7 @@ public class UtilityPearlItem extends EnderpearlItem {
                 0.5F,
                 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F)
         );
-        pPlayer.getCooldowns().addCooldown(this, 10);
+        pPlayer.getCooldowns().addCooldown(this, 60);
         if (!pLevel.isClientSide) {
             UtilityPearlEntity utilityPearl = new UtilityPearlEntity(ModEntities.UTILITY_PEARL.get(), pLevel,pPlayer,applyTo,itemstack.getItem(),itemstack.get(DataComponents.POTION_CONTENTS));
             utilityPearl.setPos(pPlayer.getX(),pPlayer.getEyeY(),pPlayer.getZ());

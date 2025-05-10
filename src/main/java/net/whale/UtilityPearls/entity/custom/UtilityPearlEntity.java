@@ -1,41 +1,53 @@
+
 package net.whale.UtilityPearls.entity.custom;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.whale.UtilityPearls.command.UtilityPearlData;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class UtilityPearlEntity extends ThrownEnderpearl {
+    private static final TicketType<UtilityPearlEntity> PEARL_TICKET = TicketType.create("utility_pearl", (a,b) -> 0);
+    private final Set<ChunkPos> loadedChunks = new HashSet<>();
     private Item item;
-    private Player player;
-    private Level world;
-    private int lifeTime = 0;
+    private final Level world;
     private int applyTo;
     private PotionContents contents;
-    public UtilityPearlEntity(EntityType<? extends ThrownEnderpearl> entityType, Level world, Player player, int applyTo, Item item,PotionContents contents) {
+    private Entity owner;
+    private boolean doDamage;
+    public UtilityPearlEntity(EntityType<? extends ThrownEnderpearl> entityType, Level world,Entity owner, int applyTo, Item item,PotionContents contents) {
         super(entityType, world);
         this.setNoGravity(true);
         this.world = world;
-        this.player = player;
         this.applyTo = applyTo;
         this.item = item;
         this.contents = contents;
+        this.owner = owner;
+        Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),this.getBoundingBox(),this.getBoundingBox().inflate(0.5), e -> !e.isSpectator() && e.isPickable() && e != this.owner);
+        hitresult.ifPresent(this::onHit);
+        loadChunksAhead();
     }
     public UtilityPearlEntity(EntityType<UtilityPearlEntity> entityType, Level level) {
         super(entityType,level);
@@ -43,25 +55,58 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     }
 
     @Override
-    protected void onHit(HitResult pResult) {
-        if (pResult instanceof EntityHitResult entityHitResult) {
-            super.onHit(pResult);
-            onHitEntity(entityHitResult);
+    protected void onHit(@NotNull HitResult pResult) {
+        if (!(pResult instanceof EntityHitResult hitRes)) {
+            return;
+        }
+        if (owner instanceof ServerPlayer player && this.level() instanceof ServerLevel server) {
+            onHitEntity(hitRes);
+            if (player.isSleeping()) {
+                player.stopSleepInBed(true, true);
+            }
+            if (player.isPassenger()) {
+                player.stopRiding();
+            }
+            var evt = net.minecraftforge.event.ForgeEventFactory.onEnderPearlLand(
+                    player, this.getX(), this.getY(), this.getZ(),
+                    this, 7.0F, pResult);
+            if (evt.isCanceled()) {
+                discard();
+                return;
+            }
+            if (server.getRandom().nextFloat() < 0.05F &&
+                    server.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+                Endermite mite = EntityType.ENDERMITE.create(server);
+                if (mite != null) {
+                    mite.moveTo(player.getX(), player.getY(), player.getZ(),
+                            player.getYRot(), player.getXRot());
+                    server.addFreshEntity(mite);
+                }
+            }
+            player.resetFallDistance();
+            Vec3 tpPosition = hitRes.getEntity().position().subtract(owner.getLookAngle().normalize().scale(1.5)).add(0,1.0,0);
+            player.teleportTo(tpPosition.x,tpPosition.y,tpPosition.z);
+            server.playSound(null,
+                    this.getX(), this.getY(), this.getZ(),
+                    SoundEvents.PLAYER_TELEPORT,
+                    SoundSource.PLAYERS,
+                    1.0F, 1.0F
+            );
+            doDamage = true;
         }
     }
     @Override
-    protected void onHitBlock(BlockHitResult result) {
-    }
+    protected void onHitBlock(@NotNull BlockHitResult result) {}
 
     @Override
-    protected void onHitEntity(EntityHitResult entityHitResult) {
+    protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
         PotionContents contents = getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-        if (applyTo == 1)
+        if (applyTo == 1) {
             for (MobEffectInstance effect : contents.getAllEffects()) {
-                if (effect.getEffect().value().isInstantenous()) {
-                    effect.getEffect().value().applyInstantenousEffect(this, player, player, effect.getAmplifier(), 0.5);
+                if (effect.getEffect().value().isInstantenous() && owner instanceof LivingEntity entity) {
+                    effect.getEffect().value().applyInstantenousEffect(this, owner, entity, effect.getAmplifier(), 1);
                 } else {
-                    player.addEffect(new MobEffectInstance(
+                    if (owner instanceof LivingEntity entity) entity.addEffect(new MobEffectInstance(
                             effect.getEffect(),
                             effect.getDuration() / 4,
                             effect.getAmplifier(),
@@ -71,10 +116,11 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
                     ));
                 }
             }
+        }
         else if (applyTo == 2 && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
             for (MobEffectInstance effect : contents.getAllEffects()) {
                 if (effect.getEffect().value().isInstantenous()) {
-                    effect.getEffect().value().applyInstantenousEffect(this, player, livingEntity, effect.getAmplifier(), 0.5);
+                    effect.getEffect().value().applyInstantenousEffect(this, owner, livingEntity, effect.getAmplifier(), 1);
                 } else {
                     livingEntity.addEffect(new MobEffectInstance(
                             effect.getEffect(),
@@ -90,37 +136,112 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     }
     @Override
     public void tick() {
-        super.tick();
-        if(!world.isClientSide) {
-            Vec3 start = this.position();
-            Vec3 end = start.add(this.getDeltaMovement());
-
-            HitResult hitResult = ProjectileUtil.getEntityHitResult(this.level(), this, start, end, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0),
-                    entity -> !entity.isSpectator() && entity.isAlive() && entity.isPickable() && entity != this.getOwner()
-            );
-
-            if (hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
-                EntityHitResult entityHitResult = (EntityHitResult) hitResult;
-                onHit(entityHitResult);
-            }
-            lifeTime++;
-            if (lifeTime > UtilityPearlData.get(((ServerLevel) world)).getLifetime()) {
-                returnToPlayer();
+        if(doDamage){
+            if(world.isClientSide){
                 discard();
+            } else {
+                owner.hurt(this.damageSources().mobProjectile(this, (LivingEntity) owner), 7.0F);
+                doDamage = false;
+                discard();
+            }
+        } else {
+            super.tick();
+            if (!world.isClientSide) {
+                if (owner == null){
+                    if(getOwner() == null){
+                        discard();
+                        return;
+                    } else{
+                        owner = getOwner();
+                    }
+                }
+                if (this.tickCount >= UtilityPearlData.get(((ServerLevel) world)).getLifetime()) {
+                    returnToPlayer();
+                } else if (!this.world.dimension().equals(owner.level().dimension())) {
+                    returnToPlayer();
+                }
+                Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),this.getBoundingBox(),this.getBoundingBox().inflate(0.5), e -> !e.isSpectator() && e.isPickable() && e != this.owner);
+                hitresult.ifPresent(this::onHit);
+                loadChunksAhead();
             }
         }
     }
+
+    @Override
+    protected @NotNull ProjectileDeflection hitTargetOrDeflectSelf(@NotNull HitResult hitResult) {
+        if(hitResult instanceof BlockHitResult){
+            findHitResultThroughBlock();
+        } else {
+            onHit(hitResult);
+        }
+        return ProjectileDeflection.NONE;
+    }
+    public List<AABB> getPossibleHitPoints(){
+        List<AABB> boxList = new ArrayList<>();
+        double tryPoints = getDeltaMovement().lengthSqr()*3;
+        for (double i = 0; i<= tryPoints; i++) {
+            Vec3 point = position().add(getDeltaMovement().scale(i/ tryPoints));
+            boxList.add(new AABB(point.subtract(0.15,0.15,0.15),point.add(0.15,0.15,0.15)));
+        }
+        return boxList;
+    }
+
+    private void findHitResultThroughBlock() {
+        for (AABB box : getPossibleHitPoints()){
+            Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),box,box.inflate(0.5),e -> !e.isSpectator() && e.isPickable() && e != this.owner);
+            if(hitresult.isPresent()){
+                onHit(hitresult.get());
+                return;
+            }
+        }
+    }
+
+    private void loadChunksAhead() {
+        if (!(world instanceof ServerLevel serverLevel)) return;
+        ChunkPos current = new ChunkPos(this.blockPosition());
+        Vec3 dir = this.getDeltaMovement().normalize().scale(5);
+        BlockPos future = BlockPos.containing(this.position().add(dir));
+        ChunkPos futureChunk = new ChunkPos(future);
+
+        List<ChunkPos> toLoad = new ArrayList<>();
+        toLoad.add(current);
+        toLoad.add(futureChunk);
+
+        for (ChunkPos pos : toLoad) {
+            if (loadedChunks.add(pos)) {
+                serverLevel.getChunkSource().addRegionTicket(PEARL_TICKET, pos, 2, this);
+            }
+        }
+    }
+    private void unloadChunks() {
+        if (!(world instanceof ServerLevel serverLevel)) return;
+
+        ServerChunkCache chunkSource = serverLevel.getChunkSource();
+        for (ChunkPos pos : loadedChunks) {
+            chunkSource.removeRegionTicket(PEARL_TICKET, pos, 2, this);
+        }
+        loadedChunks.clear();
+    }
+    @Override
+    public boolean canChangeDimensions(@NotNull Level p_343286_, @NotNull Level p_343504_) {
+        return false;
+    }
+    @Override
+    public void remove(RemovalReason reason) {
+        unloadChunks();
+        super.remove(reason);
+    }
     private void returnToPlayer() {
-        if (this.getOwner() instanceof Player player && item != null) {
+        if (this.owner instanceof Player sameplayer && item != null) {
             ItemStack newItem = new ItemStack(item);
             newItem.set(DataComponents.POTION_CONTENTS,contents);
-            if(!player.hasInfiniteMaterials()) {
-                if (!player.getInventory().add(newItem)) {
-                    player.drop(newItem, false);
+            if(!sameplayer.hasInfiniteMaterials()) {
+                if (!sameplayer.getInventory().add(newItem)) {
+                    sameplayer.drop(newItem, false);
                 } else {
                     level().playSound(
                             null,
-                            this.getOwner().getX(), this.getOwner().getY() + 0.5, this.getOwner().getZ(),
+                            this.owner.getX(), this.owner.getY() + 0.5, this.owner.getZ(),
                             SoundEvents.ITEM_PICKUP,
                             SoundSource.PLAYERS,
                             0.2F,
@@ -128,5 +249,18 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
                 }
             }
         }
+        discard();
+    }
+    @Nullable
+    public Optional<EntityHitResult> getModEntityHitResult(
+            Level level, AABB aabb, AABB searchbox, Predicate<Entity> predicate
+    ) {
+        for (Entity entity : level.getEntities(this, searchbox, predicate)) {
+            AABB aabb1 = entity.getBoundingBox();
+            if(aabb1.intersects(aabb)){
+                return Optional.of(new EntityHitResult(entity));
+            }
+        }
+        return Optional.empty();
     }
 }

@@ -1,5 +1,9 @@
-// 1.21	2025-04-17T18:21:52.6876857	Recipes
+// 1.21	2025-05-10T18:20:21.7908763	Recipes
 58d87f3808a4bc163a17162be9f9a5d739c5cbdc data/minecraft/advancement/recipes/misc/ender_pearl.json
 5219530b2ae98c6cf358d9ad4c9be4616f68e852 data/minecraft/recipe/ender_pearl.json
 9d72de3da1b035d46042e15f790f622cb562e1e1 data/utility_pearls/advancement/recipes/misc/utility_pearl.json
+5df1b18ce81dcc6daa76ce2518f23df60bd27552 data/utility_pearls/advancement/recipes/misc/utility_pearl_from_hit_entity.json
+ccc09c699b9f05c2d0ecc214fa60125454a38d21 data/utility_pearls/advancement/recipes/misc/utility_pearl_from_owner.json
 daf0e909311a60b52845b4967ff7ce28d13e3b09 data/utility_pearls/recipe/utility_pearl.json
+c71a3c2892d3a8710ca79f7da384261982c8149e data/utility_pearls/recipe/utility_pearl_from_hit_entity.json
+a8a924157f4efaac172159dddcf8eacccfb5ea10 data/utility_pearls/recipe/utility_pearl_from_owner.json
