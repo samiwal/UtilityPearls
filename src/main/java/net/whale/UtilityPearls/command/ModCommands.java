@@ -35,9 +35,6 @@ public class ModCommands {
     private static int executespeed(CommandContext<CommandSourceStack> context) {
         float speed = FloatArgumentType.getFloat(context,"speed");
         UtilityPearlData.get((context.getSource().getLevel())).setSpeed(speed);
-        if(speed > 4.2){
-            context.getSource().sendSystemMessage(Component.literal("Warning: Speeds greater than 4.2 may cause visual and chunk loading glitches!"));
-        }
         context.getSource().sendSuccess(
                 () -> Component.literal(
                         "Changed speed of UtilityPearl in " + getDimension(context) + "to " + speed),
