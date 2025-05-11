@@ -1,6 +1,7 @@
 {
   "item.utility_pearls.utility_pearl.effect.empty": "Utility Pearl",
   "item.utility_pearls.utility_pearl_hit_entity.effect.awkward": "Awkward Utility Pearl (Hit Entity)",
+  "item.utility_pearls.utility_pearl_hit_entity.effect.empty": "Every Utility Pearl (Hit Entity)",
   "item.utility_pearls.utility_pearl_hit_entity.effect.fire_resistance": "Fire Resistance Utility Pearl (Hit Entity)",
   "item.utility_pearls.utility_pearl_hit_entity.effect.harming": "Harming Utility Pearl (Hit Entity)",
   "item.utility_pearls.utility_pearl_hit_entity.effect.healing": "Healing Utility Pearl (Hit Entity)",
@@ -47,6 +48,7 @@
   "item.utility_pearls.utility_pearl_hit_entity.effect.weaving": "Weaving Utility Pearl (Hit Entity)",
   "item.utility_pearls.utility_pearl_hit_entity.effect.wind_charged": "Wind Charged Utility Pearl (Hit Entity)",
   "item.utility_pearls.utility_pearl_owner.effect.awkward": "Awkward Utility Pearl (Owner)",
+  "item.utility_pearls.utility_pearl_owner.effect.empty": "Every Utility Pearl (Owner)",
   "item.utility_pearls.utility_pearl_owner.effect.fire_resistance": "Fire Resistance Utility Pearl (Owner)",
   "item.utility_pearls.utility_pearl_owner.effect.harming": "Harming Utility Pearl (Owner)",
   "item.utility_pearls.utility_pearl_owner.effect.healing": "Healing Utility Pearl (Owner)",

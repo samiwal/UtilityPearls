@@ -42,6 +42,7 @@ public final class UtilityPearlOwnerRecipeMaker {
                                     pearlIngredient,Ingredient.EMPTY,Ingredient.EMPTY,
                                     Ingredient.EMPTY,pearlIngredient,Ingredient.EMPTY,
                                     Ingredient.EMPTY,Ingredient.EMPTY,potionIngredient);
+                            output.setCount(2);
                         }
                     }
                     ResourceLocation id = ResourceLocation.fromNamespaceAndPath(UtilityPearls.MOD_ID, "whale.utility_pearl." + output.getDescriptionId());

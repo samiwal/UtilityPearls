@@ -20,7 +20,7 @@ public class ModEntities {
                () -> EntityType.Builder.<UtilityPearlEntity>of(UtilityPearlEntity::new, MobCategory.MISC)
                        .sized(0.3F, 0.3F)
                        .clientTrackingRange(6)
-                       .updateInterval(10)
+                       .updateInterval(1)
                        .build(ResourceLocation.fromNamespaceAndPath(UtilityPearls.MOD_ID,name).toString()));}
 
    public static void register(IEventBus eventBus){
