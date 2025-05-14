@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "utility_pearls:utility_pearl_from_owner"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_utility_pearl_owner": {
+      "conditions": {
+        "items": [
+          {
+            "items": "utility_pearls:utility_pearl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_utility_pearl_owner"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "utility_pearls:utility_pearl_from_owner"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "utility_pearls:utility_pearl_hit_entity"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "utility_pearls:utility_pearl"
+  }
+}
