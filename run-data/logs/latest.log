@@ -1,23 +1,23 @@
-[10Mai2025 18:19:46.538] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_userdev_data, --assetIndex, 17, --assetsDir, C:\Users\samue\.gradle\caches\forge_gradle\assets, --gameDir, ., --mod, utility_pearls, --all, --output, C:\Users\samue\Documents\Forge_1.21\src\generated\resources, --existing, C:\Users\samue\Documents\Forge_1.21\src\main\resources]
-[10Mai2025 18:19:46.543] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.5+11-LTS
-[10Mai2025 18:19:46.545] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.2.1 starting: java version 21.0.5 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
-[10Mai2025 18:19:46.792] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_userdev_data
-[10Mai2025 18:19:47.106] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=jar:file:///C:/Users/samue/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.7/8ab114ac385e6dbdad5efafe28aba4df8120915f/mixin-0.8.7.jar!/ Service=ModLauncher Env=UNKNOWN
-[10Mai2025 18:19:49.468] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[10Mai2025 18:19:52.050] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_userdev_data' with arguments [--gameDir, ., --assetsDir, C:\Users\samue\.gradle\caches\forge_gradle\assets, --assetIndex, 17, --mod, utility_pearls, --all, --output, C:\Users\samue\Documents\Forge_1.21\src\generated\resources, --existing, C:\Users\samue\Documents\Forge_1.21\src\main\resources]
-[10Mai2025 18:20:17.798] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 51.0.33, for MC 1.21 with MCP 20240613.102039
-[10Mai2025 18:20:17.798] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v51.0.33 Initialized
-[10Mai2025 18:20:17.952] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
-[10Mai2025 18:20:18.917] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
-[10Mai2025 18:20:18.955] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 28.01 ms
-[10Mai2025 18:20:20.245] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [utility_pearls]
-[10Mai2025 18:20:20.595] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/samue/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_official_1.21/forge-1.21-51.0.33_mapped_official_1.21-recomp.jar%230!/assets/.mcassetsroot' uses unexpected schema
-[10Mai2025 18:20:20.598] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/samue/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_official_1.21/forge-1.21-51.0.33_mapped_official_1.21-recomp.jar%230!/data/.mcassetsroot' uses unexpected schema
-[10Mai2025 18:20:21.145] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[10Mai2025 18:20:21.750] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 603 ms
-[10Mai2025 18:20:21.750] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: utility_pearls
-[10Mai2025 18:20:21.768] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: utility_pearls finished after 16 ms
-[10Mai2025 18:20:21.769] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us
-[10Mai2025 18:20:21.787] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us finished after 17 ms
-[10Mai2025 18:20:21.787] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 642 ms
-[10Mai2025 18:20:21.809] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 10, old count: 6, new count: 11, removed stale: 0, written: 5
+[14Mai2025 14:57:16.498] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_userdev_data, --assetIndex, 17, --assetsDir, C:\Users\samue\.gradle\caches\forge_gradle\assets, --gameDir, ., --mod, utility_pearls, --all, --output, C:\Users\samue\Documents\UtilityPearls\src\generated\resources, --existing, C:\Users\samue\Documents\UtilityPearls\src\main\resources]
+[14Mai2025 14:57:16.509] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.5+11-LTS
+[14Mai2025 14:57:16.511] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.2.1 starting: java version 21.0.5 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[14Mai2025 14:57:16.825] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_userdev_data
+[14Mai2025 14:57:17.475] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=jar:file:///C:/Users/samue/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.7/8ab114ac385e6dbdad5efafe28aba4df8120915f/mixin-0.8.7.jar!/ Service=ModLauncher Env=UNKNOWN
+[14Mai2025 14:57:20.951] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[14Mai2025 14:57:24.046] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_userdev_data' with arguments [--gameDir, ., --assetsDir, C:\Users\samue\.gradle\caches\forge_gradle\assets, --assetIndex, 17, --mod, utility_pearls, --all, --output, C:\Users\samue\Documents\UtilityPearls\src\generated\resources, --existing, C:\Users\samue\Documents\UtilityPearls\src\main\resources]
+[14Mai2025 14:57:37.762] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 51.0.33, for MC 1.21 with MCP 20240613.102039
+[14Mai2025 14:57:37.763] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v51.0.33 Initialized
+[14Mai2025 14:57:37.846] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
+[14Mai2025 14:57:38.356] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[14Mai2025 14:57:38.421] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 18.45 ms
+[14Mai2025 14:57:39.182] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [utility_pearls]
+[14Mai2025 14:57:39.427] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/samue/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_official_1.21/forge-1.21-51.0.33_mapped_official_1.21-recomp.jar%230!/assets/.mcassetsroot' uses unexpected schema
+[14Mai2025 14:57:39.432] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/samue/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_official_1.21/forge-1.21-51.0.33_mapped_official_1.21-recomp.jar%230!/data/.mcassetsroot' uses unexpected schema
+[14Mai2025 14:57:39.650] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[14Mai2025 14:57:40.023] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 372 ms
+[14Mai2025 14:57:40.024] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: utility_pearls
+[14Mai2025 14:57:40.033] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: utility_pearls finished after 8 ms
+[14Mai2025 14:57:40.033] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us
+[14Mai2025 14:57:40.038] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us finished after 4 ms
+[14Mai2025 14:57:40.038] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 388 ms
+[14Mai2025 14:57:40.062] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 14, old count: 10, new count: 11, removed stale: 4, written: 4

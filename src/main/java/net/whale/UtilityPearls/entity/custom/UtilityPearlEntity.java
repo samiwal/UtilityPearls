@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,9 +25,7 @@ import net.minecraft.world.phys.*;
 import net.whale.UtilityPearls.command.UtilityPearlData;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.Predicate;
 
 public class UtilityPearlEntity extends ThrownEnderpearl {
     private static final TicketType<UtilityPearlEntity> PEARL_TICKET = TicketType.create("utility_pearl", (a,b) -> 0);
@@ -45,8 +44,6 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
         this.item = item;
         this.contents = contents;
         this.owner = owner;
-        Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),this.getBoundingBox(),this.getBoundingBox().inflate(0.5), e -> !e.isSpectator() && e.isPickable() && e != this.owner);
-        hitresult.ifPresent(this::onHit);
         loadChunksAhead();
     }
     public UtilityPearlEntity(EntityType<UtilityPearlEntity> entityType, Level level) {
@@ -145,6 +142,13 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
                 discard();
             }
         } else {
+            if(!world.isClientSide){
+                EntityHitResult hitres = ProjectileUtil.getEntityHitResult(this.level(),this,this.position(),this.position().add(getDeltaMovement()),new AABB(this.position(),this.position().add(getDeltaMovement())).inflate(1), e -> !e.isSpectator() && e.isPickable() && e != this.owner);
+                if(hitres != null){
+                    onHit(hitres);
+                    return;
+                }
+            }
             super.tick();
             if (!world.isClientSide) {
                 if (owner == null){
@@ -160,8 +164,6 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
                 } else if (!this.world.dimension().equals(owner.level().dimension())) {
                     returnToPlayer();
                 }
-                Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),this.getBoundingBox(),this.getBoundingBox().inflate(0.5), e -> !e.isSpectator() && e.isPickable() && e != this.owner);
-                hitresult.ifPresent(this::onHit);
                 loadChunksAhead();
             }
         }
@@ -169,33 +171,8 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
 
     @Override
     protected @NotNull ProjectileDeflection hitTargetOrDeflectSelf(@NotNull HitResult hitResult) {
-        if(hitResult instanceof BlockHitResult){
-            findHitResultThroughBlock();
-        } else {
-            onHit(hitResult);
-        }
         return ProjectileDeflection.NONE;
     }
-    public List<AABB> getPossibleHitPoints(){
-        List<AABB> boxList = new ArrayList<>();
-        double tryPoints = getDeltaMovement().lengthSqr()*3;
-        for (double i = 0; i<= tryPoints; i++) {
-            Vec3 point = position().add(getDeltaMovement().scale(i/ tryPoints));
-            boxList.add(new AABB(point.subtract(0.15,0.15,0.15),point.add(0.15,0.15,0.15)));
-        }
-        return boxList;
-    }
-
-    private void findHitResultThroughBlock() {
-        for (AABB box : getPossibleHitPoints()){
-            Optional<EntityHitResult> hitresult = getModEntityHitResult(this.level(),box,box.inflate(0.5),e -> !e.isSpectator() && e.isPickable() && e != this.owner);
-            if(hitresult.isPresent()){
-                onHit(hitresult.get());
-                return;
-            }
-        }
-    }
-
     private void loadChunksAhead() {
         if (!(world instanceof ServerLevel serverLevel)) return;
         ChunkPos current = new ChunkPos(this.blockPosition());
@@ -215,7 +192,6 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
     }
     private void unloadChunks() {
         if (!(world instanceof ServerLevel serverLevel)) return;
-
         ServerChunkCache chunkSource = serverLevel.getChunkSource();
         for (ChunkPos pos : loadedChunks) {
             chunkSource.removeRegionTicket(PEARL_TICKET, pos, 2, this);
@@ -250,17 +226,5 @@ public class UtilityPearlEntity extends ThrownEnderpearl {
             }
         }
         discard();
-    }
-    @Nullable
-    public Optional<EntityHitResult> getModEntityHitResult(
-            Level level, AABB aabb, AABB searchbox, Predicate<Entity> predicate
-    ) {
-        for (Entity entity : level.getEntities(this, searchbox, predicate)) {
-            AABB aabb1 = entity.getBoundingBox();
-            if(aabb1.intersects(aabb)){
-                return Optional.of(new EntityHitResult(entity));
-            }
-        }
-        return Optional.empty();
     }
 }
